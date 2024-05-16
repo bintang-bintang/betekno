@@ -95,7 +95,11 @@ exports.addTransaksi = async (request, response) => {
         };
   
         await detailModel.create(newDetail);
+        await keranjangModel.update({status: false}, {where: {keranjangID: keranjangData.keranjangID}})
+        await keranjangModel.update({kuantitas: 0}, {where: {keranjangID: keranjangData.keranjangID}})
+      
       }
+
 
       await transaksiModel.update({jumlahHarga: jumlahHargas},{where: {transaksiID: newTransaksiList.transaksiID}})
 

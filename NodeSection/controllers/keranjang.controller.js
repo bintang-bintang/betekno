@@ -24,6 +24,7 @@ exports.tambahProdukKeranjang = async (req, res) => {
             produkID: existingProduk.produkID,
             kuantitas: 1,
             subHarga: existingProduk.hargaProduk,
+            status: true
         }
 
         const pelannganKeranjang = await keranjang.findAll({ where: { customerID: pelanggan.customerID } })
@@ -36,6 +37,9 @@ exports.tambahProdukKeranjang = async (req, res) => {
                 const findKerangjang = await keranjang.findOne({where: {keranjangID: pelannganKeranjang[i].keranjangID}})
                 
                 await keranjang.update({subHarga: existingProduk.hargaProduk * findKerangjang.kuantitas},
+                    {where: {keranjangID: pelannganKeranjang[i].keranjangID}})
+                
+                await keranjang.update({status: true},
                     {where: {keranjangID: pelannganKeranjang[i].keranjangID}})
 
                 
@@ -73,7 +77,7 @@ exports.tambahProdukKeranjang = async (req, res) => {
 
 exports.showAllKeranjang = async (req, res) => {
     try {
-        const allKeranjang = await keranjang.findAll({ where: { customerID: req.customer.customerID } })
+        const allKeranjang = await keranjang.findAll({ where: { customerID: req.customer.customerID, status: true } })
 
         return res.json({
             success: true,
