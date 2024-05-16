@@ -12,11 +12,11 @@ const { IsUser, IsAdmin } = require('../middlewares/role-validation')
 
 /** Routeeeeeee -------------------------------------------------------------------------*/
 
-app.get("/", authorize, IsAdmin, produkController.getAllProduk)
+app.post("/",  produkController.addProduk)
+app.get("/", produkController.getAllProduk)
 app.get("/:key", authorize, IsAdmin, produkController.findProduk)
-app.post("/", authorize, IsAdmin, produkController.addProduk)
-app.put("/", authorize, IsAdmin, produkController.updateProduk)
-app.delete("/", authorize, IsAdmin, produkController.deleteProduk)
+app.put("/:id", authorize, IsAdmin, produkController.updateProduk)
+app.delete("/:id", authorize, IsAdmin, produkController.deleteProduk)
 
 /** Routeeeeeee -------------------------------------------------------------------------*/
 

@@ -9,14 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      transaksiID: {
-        type: Sequelize.INTEGER
-        ,references: {
-          model: 'transaksis',
-          key: 'transaksiID'
-        },
-        allowNull: false
-      },
       keranjangID: {
         type: Sequelize.INTEGER
         ,references: {
@@ -25,6 +17,21 @@ module.exports = {
         },
         allowNull: false
       },
+      transaksiID: {
+        type: Sequelize.INTEGER
+        ,references: {
+          model: 'transaksis',
+          key: 'transaksiID'
+        },
+        allowNull: false
+      },
+      // kuantitas: {
+      //   allowNull: false,
+      //   type: Sequelize.INTEGER
+      // },
+      // jumlahHarga: {
+      //   type: Sequelize.DOUBLE
+      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -7,6 +7,7 @@ exports.tambahProdukKeranjang = async (req, res) => {
     try {
         // Cek apakah customer dan produk tersedia
         let produkID = req.body.produkID
+        const pelanggan = req.customer
 
         //mencari produk dengan id produk
         const existingProduk = await produk.findOne({ where: { produkID: produkID } });
@@ -18,11 +19,46 @@ exports.tambahProdukKeranjang = async (req, res) => {
                 });
         }
 
-        // Tambahkan produk ke keranjang
-        const newKeranjang = await keranjang.create({
+        let produkTambah = {
             customerID: req.customer.customerID,
-            produkID: existingProduk.produkID
-        });
+            produkID: existingProduk.produkID,
+            kuantitas: 1,
+            subHarga: existingProduk.hargaProduk,
+        }
+
+        const pelannganKeranjang = await keranjang.findAll({ where: { customerID: pelanggan.customerID } })
+        for (let i = 0; i < pelannganKeranjang.length; i++) {
+            if (pelannganKeranjang[i].produkID === existingProduk.produkID && pelannganKeranjang[i].customerID === pelanggan.customerID) {
+                
+                await keranjang.update({kuantitas: pelannganKeranjang[i].kuantitas +1},
+                    {where: {keranjangID: pelannganKeranjang[i].keranjangID}})
+
+                const findKerangjang = await keranjang.findOne({where: {keranjangID: pelannganKeranjang[i].keranjangID}})
+                
+                await keranjang.update({subHarga: existingProduk.hargaProduk * findKerangjang.kuantitas},
+                    {where: {keranjangID: pelannganKeranjang[i].keranjangID}})
+
+                
+                return res.status(201).json(
+                    {
+                        message: 'penambahan produk kuantitas.'
+                    });
+            }
+        }
+
+
+
+        // const existedKeranjang = await keranjang.findOne({where: {produkID: null}}) 
+
+        // for (let i = 0; i < array.length; i++) {
+        //     const element = array[i];
+
+        // }
+
+
+        
+        // Tambahkan produk ke keranjang
+        const newKeranjang = await keranjang.create(produkTambah)
 
         return res.status(201).json(
             {

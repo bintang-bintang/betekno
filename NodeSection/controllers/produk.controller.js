@@ -47,7 +47,7 @@ exports.findProduk = async (request, response) => {
   
 }
 
-const upload = require(`./upload-image`).single(`image`)
+const upload = require(`./upload-image`).single('image')
 exports.addProduk = (request, response) => {
   /** run function upload */
   upload(request, response, async error => {

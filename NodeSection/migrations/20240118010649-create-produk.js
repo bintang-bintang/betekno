@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       hargaProduk: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DOUBLE
       },
       stokProduk: {
         type: Sequelize.INTEGER

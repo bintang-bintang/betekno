@@ -25,6 +25,12 @@ module.exports = {
         },
         allowNull: false
       },
+      kuantitas: {
+        type: Sequelize.INTEGER
+      },
+      subHarga: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

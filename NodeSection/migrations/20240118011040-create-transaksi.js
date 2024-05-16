@@ -9,15 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      tanggal: {
-        type: Sequelize.DATE
-      },
-      pesan: {
-        type: Sequelize.STRING
-      },
-      jumlahHarga: {
-        type: Sequelize.INTEGER
-      },
       customerID: {
         type: Sequelize.INTEGER
         ,references: {
@@ -25,6 +16,12 @@ module.exports = {
           key: 'customerID'
         },
         allowNull: false
+      },
+      jumlahHarga: {
+        type: Sequelize.DOUBLE
+      },
+      tanggal: {
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,

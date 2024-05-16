@@ -11,14 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasOne(models.detail,
-        {
-          foreignKey: "keranjangID",
-          as: "keranjangDetail"
-        }
-      )
-      this.belongsTo(models.produk,{foreignKey: "produkID"})
-      this.belongsTo(models.customer,{foreignKey: "customerID"})
+      this.belongsTo(models.produk, {foreignKey: "produkID"})
+      this.belongsTo(models.customer, {foreignKey: "customerID"})
     }
   }
   keranjang.init(
@@ -30,7 +24,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER
       },
       customerID: DataTypes.INTEGER,
-      produkID: DataTypes.INTEGER
+      produkID: DataTypes.INTEGER,
+      kuantitas: DataTypes.INTEGER,
+      subHarga: DataTypes.INTEGER
     },
     {
       sequelize,

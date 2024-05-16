@@ -11,14 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasOne(
-        models.detail,
-        {
-          foreignKey: "transaksiID",
-          as: "transaksiDetail"
-        }
-      )
-      this.belongsTo(models.customer,{foreignKey: "customerID"})
+      this.hasMany(models.detail, {foreignKey: "transaksiID", as:"transaksiDetail"})
+      this.belongsTo(models.customer, {foreignKey: "customerID"})
+
 }
   }
   transaksi.init(
@@ -29,10 +24,9 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER
       },
-      tanggal: DataTypes.DATE,
-      pesan: DataTypes.STRING,
-      jumlahHarga: DataTypes.INTEGER,
       customerID: DataTypes.INTEGER,
+      tanggal: DataTypes.DATE,
+      jumlahHarga: DataTypes.DOUBLE
     }, {
     sequelize,
     modelName: 'transaksi',

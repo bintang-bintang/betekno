@@ -16,7 +16,8 @@ const { IsUser, IsAdmin } = require('../middlewares/role-validation')
 
 /** Routeeeeeee -------------------------------------------------------------------------*/
 
-app.post("/", authorize, IsUser, transaksiController.addTransaksi)
+app.post("/", authorize, transaksiController.addTransaksi)
+app.get("/", transaksiController.AllUserTransaksi)
 
 /** Routeeeeeee -------------------------------------------------------------------------*/
 
